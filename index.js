@@ -1,5 +1,6 @@
 //const exp = require('constants');
 const express = require('express');
+const { append } = require('express/lib/response');
 //const res = require('express/lib/response');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,12 @@ const pool = new Pool({
 		rejectUnauthorized: false
 	}
 });
+
+// Static Files (files that don't change when your app is running)
+// EX: Js, CSS
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'))
+
 
 express()
 	.use(express.static(path.join(__dirname, 'public')))
