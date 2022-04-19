@@ -24,7 +24,7 @@ express()
 			const client = await pool.connect();
 
 			const posts = await client.query(
-				`SELECT * FROM posts ORDER BY postsID ASC`);
+				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
 				const locals = {
 					'posts': (posts) ? posts.rows : null
@@ -79,11 +79,13 @@ express()
 			const title = req.body.title;
 			const body = req.body.body;
 
-			const sqlInsert = await client.query(
-				`INSERT INTO posts (userID, postsID, title, body)
-				VALUES (${postsId}, ${userId}, ${title}, ${body})
-				RETURNING postsId as newId;`);
-				console.log(`Tracking post ${postsId}`);
+			const sql = `INSERT INTO posts (userID, postsID, title, body)
+			VALUES (${userId}, ${postsId}, ${title}, ${body})
+			RETURNING postsId as newId;`;
+
+			console.log(sql);
+
+			const sqlInsert = await client.query(sql);
 
 				const result = {
 					'response': (sqlInsert) ? (sqlInsert.rows[0]) : null

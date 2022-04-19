@@ -7,14 +7,15 @@
 <body>
 	<h1>Home Page - Bloggy</h1>
 	<% posts.forEach(function(r) {%>
-		<button id='<%= r.postsID %>'
-			onClick = 'javascript:logTask(<%= r.postsID %>);'><%= r.title %>
+		<button id='<%= r.postsid %>'
+			onClick = 'javascript:logTask(<%= r.postsid %>);'><%= r.title %>
 		</button>
 	<% }); %>
 	<script>
 let currentPostId = null;
 
 const logTask = async function(id) {
+	console.log(id);
 	const response = await fetch('/log', {
 		method: 'POST',
 		headers: {
@@ -22,7 +23,7 @@ const logTask = async function(id) {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			postsID: -1,
+			postsID: id,
 			userID: -1,
 			title: "'This is a title'",
 			body: "'blah blah blah'"
