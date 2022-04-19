@@ -8,7 +8,7 @@
 	<h1>Home Page - Bloggy</h1>
 	<% posts.forEach(function(r) {%>
 		<button id='<%= r.postsid %>'
-			onClick = 'javascript:logTask(<%= r.postsid %>);'><%= r.title %>
+			onClick = "javascript:logTask('<%= r.postsid %>');"><%= r.title %>
 		</button>
 	<% }); %>
 	<script>

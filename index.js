@@ -79,22 +79,16 @@ express()
 			const title = req.body.title;
 			const body = req.body.body;
 
-			const sql = `INSERT INTO posts (userID, postsID, title, body)
-			VALUES (${userId}, ${postsId}, ${title}, ${body})
-			RETURNING postsId as newId;`;
+			const displayData = [postsId, userId, title, body];
 
-			console.log(sql);
-
-			const sqlInsert = await client.query(sql);
-
-				const result = {
-					'response': (sqlInsert) ? (sqlInsert.rows[0]) : null
-				};
-				res.set({
-					'Content-Type': 'application/json'
-				});
-				res.json({ requestBody: result });
-				client.release();
+			const result = {
+				'response': displayData
+			};
+			res.set({
+				'Content-Type': 'application/json'
+			});
+			res.json({ requestBody: result });
+			client.release();
 		}
 		catch (err) {
 			console.error(err);
