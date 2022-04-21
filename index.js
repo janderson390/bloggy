@@ -4,8 +4,11 @@ const { append } = require('express/lib/response');
 //const res = require('express/lib/response');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
+const { auth } = require('express-openid-connect');
 const { Pool } = require('pg');
 //const { isNull } = require('util');
+
+require('dotenv').config();
 
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL,
@@ -24,8 +27,19 @@ express()
 	.use(express.static(path.join(__dirname, 'public')))
 	.use(express.json())
 	.use(express.urlencoded({ extended: true}))
+	.use(auth({
+		authRequired: false,
+		auth0Logout: true,
+		issuerBaseURL: process.env.ISSUER_BASE_URL,
+    	baseURL: process.env.BASE_URL,
+    	clientID: process.env.CLIENT_ID,
+    	secret: process.env.SECRET,
+	}))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
+	.get('/', (req, res) => {
+		res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+	})
 	.get('/', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -33,11 +47,11 @@ express()
 			const posts = await client.query(
 				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
-				const locals = {
-					'posts': (posts) ? posts.rows : null
-				};
-				res.render('pages/index', locals);
-				client.release();
+			const locals = {
+				'posts': (posts) ? posts.rows : null
+			};
+			res.render('pages/index', locals);
+			client.release();
 		} 
 		catch (err) {
 			console.error(err);
