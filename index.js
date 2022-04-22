@@ -40,7 +40,7 @@ express()
 	.get('/', (req, res) => {
 		res.redirect(req.oidc.isAuthenticated() ? '/home' : '/login');
 	})
-	.get('/', async(req, res) => {
+	.get('/home', async(req, res) => {
 		try {
 			const client = await pool.connect();
 
