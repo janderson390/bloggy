@@ -38,7 +38,7 @@ express()
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
 	.get('/', (req, res) => {
-		res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+		res.redirect(req.oidc.isAuthenticated() ? '/home' : '/login');
 	})
 	.get('/', async(req, res) => {
 		try {
