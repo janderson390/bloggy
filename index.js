@@ -30,10 +30,10 @@ express()
 	.use(auth({
 		authRequired: false,
 		auth0Logout: true,
-		issuerBaseURL: process.env.ISSUER_BASE_URL,
-    	baseURL: process.env.BASE_URL,
-    	clientID: process.env.CLIENT_ID,
-    	secret: process.env.SECRET,
+		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
+    	baseURL: 'https://aqueous-reaches-99018.herokuapp.com',
+    	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
+    	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
 	}))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
