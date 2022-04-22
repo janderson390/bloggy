@@ -11,3 +11,10 @@ topics.
 1. Install postgres (https://www.postgresql.org/download/)
 2. Install nodeJS (https://nodejs.org/en/download/)
 3. Install Heroku - Follow installation on the following page (https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
+
+secret
+ISSUER_BASE_URL=https://dev-jihvntvr.us.auth0.com
+CLIENT_ID=wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748
+BASE_URL=http://localhost:5000
+SECRET=awdasgwafasd126gg4llkgr41ssfbbhuyb33
+
