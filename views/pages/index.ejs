@@ -2,38 +2,69 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>capstone_Bloggy</title>
+	<title>Bloggy</title>
 	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
 </head>
 <body>
-	<h1>Home Page - Bloggy</h1>
-	<% posts.forEach(function(r) {%>
+	<h1>Bloggy</h1>
+
+	<div class="wrapper">
+
+		<nav class="navLinks">
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">Profile</a></li>
+				<li><a href="">Settings</a></li>
+				<li><a href="">Login</a></li>
+				<li><textarea id="search" name="search" placeholder="Search"></textarea></li>
+				
+				
+			</ul>
+		</nav>
+
+		<span class="goUpBtn"></span>
+
+		
+
+		<div class="outerRecentPosts">
+			<h1 class="h1">Recent Posts</h1>
+			<div class="innerRecentPosts">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+		</div>
+
+		<div class="outerOldPosts">
+			<h1 class="h1">Old Posts</h1>
+			<div class="innerOldPosts">
+				<p>
+					This is an old post. This is an old post.This is an old post.
+					This is an old post.This is an old post.This is an old post.
+					This is an old post.This is an old post.This is an old post.
+					This is an old post.This is an old post.This is an old post.
+				</p>
+			</div>
+		</div>
+
+		</div>
+
+		<div class="footer">
+
+		</div>
+
+
+	</div>
+
+	<!-- <% posts.forEach(function(r) {%>
 		<button id='<%= r.postsid %>'
 			onClick = "javascript:logTask('<%= r.postsid %>');"><%= r.title %>
 		</button>
-	<% }); %>
-	<script>
-let currentPostId = null;
+	<% }); %> -->
 
-const logTask = async function(id) {
-	console.log(id);
-	const response = await fetch('/log', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			postsID: id,
-			userID: -1,
-			title: "'This is a title'",
-			body: "'blah blah blah'"
-		})
-	});
-	const result = await response.json();
-	console.log(result);
-	currentPostId = id;
-};
-	</script>
+
+
+	<script src="/js/logTask.js"></script>
+
 </body>
 </html>

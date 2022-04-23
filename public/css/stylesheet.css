@@ -1,5 +1,108 @@
 body {
     margin: 0 auto;
     text-align: center;
-    background-color: azure;
+    max-height: 1920px;
+}
+
+/*
+    Reminder to self: remove outter div borders
+*/
+.wrapper {
+    margin: 0 auto;
+    text-align: center;
+    width: 1080px;
+    border: 1px solid black;
+    background-color: blanchedalmond;
+}
+
+#search {
+    width: 150px;
+    height: 1.5rem;
+    resize: none;
+    margin-bottom: -10px;
+}
+
+.navLinks {
+    list-style: none;
+    width: 720px;
+    margin: 2rem auto;
+    background-color: green;
+    border: 1px solid black;
+    padding: .5rem;
+}
+
+.navLinks ul {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border: 1px solid black;
+    width: 660px;
+    margin: 0 auto;
+}
+
+.navLinks li {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    display: inline;
+    text-align: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+
+    margin: -2px;
+}
+
+.navLinks a {
+    text-decoration: none;
+    color:black;
+}
+
+.navLinks li:last-child {
+    border-right: none;
+    background-color: none;
+}
+
+.navLinks ul > li:hover {
+    background-color: blue;
+}
+
+.navLinks ul > li:hover:last-child {
+    background-color: transparent;
+}
+
+.h1 {
+    text-align: left;
+    margin-left: 36px;
+}
+
+.outerRecentPosts {
+    width: 920px;
+    text-align: center;
+    margin: 2rem auto;
+    border: 1px solid black;
+    background-color: rgb(168, 137, 137);
+}
+
+.outerOldPosts {
+    width: 920px;
+    text-align: center;
+    margin: 2rem auto;
+    border: 1px solid black;
+    background-color: rgb(154, 168, 137);
+}
+
+.innerRecentPosts {
+    border: 1px solid black;
+    width: 820px;
+    margin: 2rem auto;
+    padding: .8rem;
+
+}
+
+.innerOldPosts {
+    border: 1px solid black;
+    width: 820px;
+    margin: 2rem auto;
+    padding: .8rem;
+
 }

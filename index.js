@@ -20,7 +20,8 @@ const pool = new Pool({
 // Static Files (files that don't change when your app is running)
 // EX: Js, CSS
 express().use(express.static('public'));
-express().use('/css', express.static(__dirname + 'public/css'))
+express().use('/css', express.static(__dirname + 'public/css'));
+express().use('js', express.static(__dirname + 'public/js'));
 
 
 express()
