@@ -20,3 +20,7 @@ CLIENT_ID=wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748
 BASE_URL=http://localhost:5000
 SECRET=awdasgwafasd126gg4llkgr41ssfbbhuyb33
 ####################
+
+## NOTE:
+To run locally, you must change the baseURL property in index.js to 'http://localhost:5000'
+AND your node must be running at port 5000
