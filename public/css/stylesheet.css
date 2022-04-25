@@ -37,6 +37,7 @@ body {
     border: 1px solid black;
     width: 660px;
     margin: 0 auto;
+    background-color: slategray;
 }
 
 .navLinks li {
