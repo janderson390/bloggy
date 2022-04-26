@@ -36,7 +36,7 @@ express()
 		authRequired: false,
 		auth0Logout: true,
 		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
-    	baseURL: BASE_URL,
+    	baseURL: 'https://aqueous-reaches-99018.herokuapp.com',
     	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
     	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
 			
