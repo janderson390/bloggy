@@ -36,7 +36,7 @@ express()
 		authRequired: false,
 		auth0Logout: true,
 		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
-    	baseURL: 'https://aqueous-reaches-99018.herokuapp.com',
+    	baseURL: BASE_URL,
     	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
     	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
 			
@@ -88,24 +88,6 @@ express()
 		}
 	})
 
-	.get('/settings', async(req, res) => {
-		try {
-			const client = await pool.connect();
-
-			// TODO: Settings stuff
-			
-
-			const locals = {};
-
-			res.render('pages/settings', locals);
-			client.release();
-		} 
-		catch (err) {
-			console.error(err);
-			res.send("Error " + err);
-		}
-	})
-
 	.get('/db-info', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -140,7 +122,6 @@ express()
 			res.send("Error: " + err);
 		}
 	})
-
 	.post('/log', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -165,5 +146,4 @@ express()
 			res.send("Error " + err);
 		}
 	})
-
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`));
