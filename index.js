@@ -4,9 +4,11 @@ const { append } = require('express/lib/response');
 //const res = require('express/lib/response');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.BASE_URL || 'https://aqueous-reaches-99018.herokuapp.com';
 const { auth } = require('express-openid-connect');
 const { Pool } = require('pg');
 //const { isNull } = require('util');
+
 
 require('dotenv').config();
 
@@ -24,6 +26,8 @@ express().use('/css', express.static(__dirname + 'public/css'));
 express().use('js', express.static(__dirname + 'public/js'));
 
 
+
+
 express()
 	.use(express.static(path.join(__dirname, 'public')))
 	.use(express.json())
@@ -32,15 +36,20 @@ express()
 		authRequired: false,
 		auth0Logout: true,
 		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
-    	baseURL: 'https://aqueous-reaches-99018.herokuapp.com',
+    	baseURL: BASE_URL,
     	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
     	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
+			
 	}))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
+
+
+
 	.get('/', (req, res) => {
 		res.redirect(req.oidc.isAuthenticated() ? '/home' : '/login');
 	})
+
 	.get('/home', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -59,6 +68,26 @@ express()
 			res.send("Error " + err);
 		}
 	})
+
+	.get('/profile', async(req, res) => {
+		try {
+			const client = await pool.connect();
+
+			const posts = await client.query(
+				`SELECT * FROM posts ORDER BY postsid ASC;`);
+
+			const locals = {
+				'posts': (posts) ? posts.rows : null
+			};
+			res.render('pages/profile', locals);
+			client.release();
+		} 
+		catch (err) {
+			console.error(err);
+			res.send("Error " + err);
+		}
+	})
+
 	.get('/db-info', async(req, res) => {
 		try {
 			const client = await pool.connect();

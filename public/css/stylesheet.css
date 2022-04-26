@@ -107,3 +107,28 @@ body {
     padding: .8rem;
 
 }
+.enterTextDiv {
+    border: 1px solid black;
+    margin: 2rem auto;
+    padding: 20;
+    width: 80%;
+    height: 150px;
+    background-color: coral;
+
+}
+.blogText {
+    border: 1px solid black;
+    margin: 2rem auto;
+    padding: 20;
+    width: 80%;
+    height: 100px;
+
+}
+.textForm {
+    border: 1px solid black;
+    margin: 2rem auto;
+    padding: 20;
+    width: 80%;
+    height: 100px;
+
+}
