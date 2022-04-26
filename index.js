@@ -122,6 +122,9 @@ express()
 			res.send("Error: " + err);
 		}
 	})
+	.get('/authenticateLogin', (req, res) => {
+		res.redirect(req.oidc.isAuthenticated() ? '/createPost' : '/login')
+	})
 	.post('/log', async(req, res) => {
 		try {
 			const client = await pool.connect();
