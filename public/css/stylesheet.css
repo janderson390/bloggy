@@ -132,3 +132,17 @@ body {
     height: 100px;
 
 }
+.footerNav {
+    float: left;
+}
+
+.footerNav a {
+    text-decoration: none;
+    color: black;
+}
+
+.footerNav a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: blue;
+}

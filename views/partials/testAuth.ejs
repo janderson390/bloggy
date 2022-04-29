@@ -1,0 +1,8 @@
+<%
+var auth = authenticated; // Note: authenticated comes from the res.render method in nodejs
+if (auth) { // logged in
+    text = "Logout"
+} else { // not logged in
+    text = "Login";
+}
+%>

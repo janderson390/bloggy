@@ -19,6 +19,10 @@ const pool = new Pool({
 	}
 });
 
+function authenticateLogin(req, res, target) {
+    res.redirect(req.oidc.isAuthenticated() ? target : '/login');
+}
+
 // Static Files (files that don't change when your app is running)
 // EX: Js, CSS
 express().use(express.static('public'));
@@ -38,8 +42,7 @@ express()
 		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
     	baseURL: BASE_URL,
     	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
-    	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
-			
+    	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',	
 	}))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
@@ -47,10 +50,10 @@ express()
 
 
 	.get('/', (req, res) => {
-		res.redirect(req.oidc.isAuthenticated() ? '/home' : '/login');
+		res.redirect('/home');
 	})
-
 	.get('/home', async(req, res) => {
+
 		try {
 			const client = await pool.connect();
 
@@ -58,7 +61,8 @@ express()
 				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
 			const locals = {
-				'posts': (posts) ? posts.rows : null
+				'posts': (posts) ? posts.rows : null,
+				'authenticated': req.oidc.isAuthenticated() ? true : false
 			};
 			res.render('pages/index', locals);
 			client.release();
@@ -68,7 +72,6 @@ express()
 			res.send("Error " + err);
 		}
 	})
-
 	.get('/profile', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -77,7 +80,8 @@ express()
 				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
 			const locals = {
-				'posts': (posts) ? posts.rows : null
+				'posts': (posts) ? posts.rows : null,
+				'authenticated': req.oidc.isAuthenticated() ? true : false
 			};
 			res.render('pages/profile', locals);
 			client.release();
@@ -87,7 +91,6 @@ express()
 			res.send("Error " + err);
 		}
 	})
-
 	.get('/db-info', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -123,7 +126,10 @@ express()
 		}
 	})
 	.get('/authenticateLogin', (req, res) => {
-		res.redirect(req.oidc.isAuthenticated() ? '/createPost' : '/login')
+		authenticateLogin(req, res, '/createPost');
+	})
+	.get('/authenticateLogout', (req, res) => {
+		authenticateLogin(req, res, '/logout');
 	})
 
 
