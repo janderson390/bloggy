@@ -8,12 +8,21 @@
 <body>
 	<h1>Bloggy</h1>
 
+	
+
 	<div class="wrapper">
 
 		<%- include('nav.ejs'); %>
 
 		<span class="goUpBtn"></span>
-		<span class="createBtn"></span>
+
+		<div class="createBtn">
+			<h1 class="title">Title</h1>
+			<textarea class="body">body</textarea>
+			
+		</div>
+		<button id="createPost" 
+            onclick="window.location.href = '/authenticateLogin'">Create Post</button>
 
 		<div class="outerRecentPosts">
 			<h1 class="h1">Recent Posts</h1>
