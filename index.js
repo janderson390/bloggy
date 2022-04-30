@@ -5,7 +5,7 @@ const { append } = require('express/lib/response');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || 'https://aqueous-reaches-99018.herokuapp.com';
-const { auth } = require('express-openid-connect');
+const { auth, requiresAuth } = require('express-openid-connect');
 const { Pool } = require('pg');
 //const { isNull } = require('util');
 
@@ -19,17 +19,17 @@ const pool = new Pool({
 	}
 });
 
+
 function authenticateLogin(req, res, target) {
     res.redirect(req.oidc.isAuthenticated() ? target : '/login');
 }
+
 
 // Static Files (files that don't change when your app is running)
 // EX: Js, CSS
 express().use(express.static('public'));
 express().use('/css', express.static(__dirname + 'public/css'));
 express().use('js', express.static(__dirname + 'public/js'));
-
-
 
 
 express()
@@ -72,7 +72,7 @@ express()
 			res.send("Error " + err);
 		}
 	})
-	.get('/profile', async(req, res) => {
+	.get('/profile', requiresAuth(), async(req, res) => {
 		try {
 			const client = await pool.connect();
 
@@ -81,9 +81,11 @@ express()
 
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
-				'authenticated': req.oidc.isAuthenticated() ? true : false
+				'authenticated': req.oidc.isAuthenticated() ? true : false,
+				'user': req.oidc.user
 			};
 			res.render('pages/profile', locals);
+
 			client.release();
 		} 
 		catch (err) {
