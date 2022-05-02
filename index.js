@@ -154,17 +154,23 @@ express()
 		}
 	})
 
-
-
 	.post('/log', async(req, res) => {
 		try {
 			const client = await pool.connect();
 			const postsId = req.body.postsID;
-			const userId = req.body.userID;
+			
 			const title = req.body.title;
 			const body = req.body.body;
 
-			const displayData = [postsId, userId, title, body];
+			const displayData = [title, body];
+
+			const postSql = await client.query(
+				`
+				INSERT INTO posts (title, body)
+				VALUES (${title}, ${body});
+				 
+				`
+			)
 
 			const result = {
 				'response': displayData
