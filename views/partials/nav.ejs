@@ -4,7 +4,17 @@
         <li><a href="profile">Profile</a></li>
         <li><a href="settings">Settings</a></li>
         <li><a href="authenticateLogout"><%= text || "Login/Out" %></a></li>
-        <li><textarea id="search" name="search" placeholder="Search"></textarea></li>
     </ul>
+
+    <div class="searchContainer">
+        <form action="/search" method="get">
+            <input id="searchBox" type="text" placeholder="Search..." name="search">
+
+            <!-- This allows user to press enter to submit search instead of clicking the button-->
+            <input type="submit" style="display: none"/>
+
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
 </nav>
 

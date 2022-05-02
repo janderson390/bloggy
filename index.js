@@ -48,7 +48,6 @@ express()
 	.set('view engine', 'ejs')
 
 
-
 	.get('/', (req, res) => {
 		res.redirect('/home');
 	})
@@ -93,48 +92,47 @@ express()
 			res.send("Error " + err);
 		}
 	})
-	.get('/db-info', async(req, res) => {
+	.get('/settings', requiresAuth(), async(req, res) => {
 		try {
 			const client = await pool.connect();
-			const tables = await client.query(
 
-				`
-				SELECT c.relname AS table, a.attname AS column, t.typname AS type 
-				FROM pg_catalog.pg_class AS c 
-				LEFT JOIN pg_catalog.pg_attribute AS a 
-				ON c.oid = a.attrelid AND a.attnum > 0 
-				LEFT JOIN pg_catalog.pg_type AS t 
-				ON a.atttypid = t.oid 
-				WHERE c.relname IN ('users', 'observations', 'students', 'schools', 'tasks') 
-				Order BY c.relname, a.attnum;
-			`);
-
-					const posts = await client.query(
-						`SELECT * FROM posts`);			
-
-					const locals = {
-						'tables': (tables) ? tables.rows : null,
-						'posts': (posts) ? posts.rows : null
-					};
+			const locals = {
+				'authenticated': req.oidc.isAuthenticated() ? true : false
+			};
 			
-
-					res.render('pages/db-info', locals);
-					client.release();
-
-		}
+			res.render('pages/settings', locals);
+			client.release();
+		} 
 		catch (err) {
 			console.error(err);
-			res.send("Error: " + err);
+			res.send("Error " + err);
 		}
 	})
-	.get('/authenticateLogin', (req, res) => {
-		authenticateLogin(req, res, '/createPost');
-	})
-	.get('/authenticateLogout', (req, res) => {
-		authenticateLogin(req, res, '/logout');
-	})
+	.get('/search', async(req, res) => {
+		try {
+			const client = await pool.connect();
 
+			// This is /search?search=text
+			const searchText = req.query.search.toLocaleLowerCase();
 
+			// Returns posts if the title has anything containing searchText, using LOWER() to make case insensitive
+			const posts = await client.query(`
+				SELECT * FROM posts WHERE LOWER(title) SIMILAR TO '%${searchText}%';
+			`);
+
+			const locals = {
+				'posts': (posts) ? posts.rows : null,
+				'authenticated': req.oidc.isAuthenticated() ? true : false
+			};
+
+			res.render('pages/searchPosts', locals);
+			client.release();
+		} 
+		catch (err) {
+			console.error(err);
+			res.send("Error " + err);
+		}
+	})
 	.get('/createPost', async(req, res) => {
 		try {
 			const client = await pool.connect();
@@ -153,6 +151,13 @@ express()
 			res.send("Error " + err);
 		}
 	})
+	.get('/authenticateLogin', (req, res) => {
+		authenticateLogin(req, res, '/createPost');
+	})
+	.get('/authenticateLogout', (req, res) => {
+		authenticateLogin(req, res, '/logout');
+	})
+	
 
 	.post('/log', async(req, res) => {
 		try {

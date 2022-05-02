@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Bloggy</title>
-	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
-</head>
+<%- include('../partials/head.ejs'); %>
 <body>
 	<h1>Bloggy</h1>
-
-	
 
 	<div class="wrapper">
 
@@ -23,21 +17,20 @@
 			<textarea class="title" placeholder="Title">title</textarea><br>
 			<textarea class="body" placeholder="ENTER YOUR BRAIN IDEA">body</textarea>
 			<button class="submitPost">Submit Post</button>
-
 		</div>
-	
 
 		<div class="outerRecentPosts">
 			<h1 class="h1">Recent Posts</h1>
 			<div class="innerRecentPosts">
 
 				<% posts.forEach(function(r) {%>
-
-					<p> <%= r.title %> </p><br>
-					<p> <%= r.body %> </p>
+				<div class="postWrapper">
+					<div class="postTitle"> <%= r.title %> </div>
+					<p class="postBody"> <%= r.body %> </p>
+					<br>
+				</div>
 				<% }); %>
 
-				
 			</div>
 		</div>
 
@@ -45,10 +38,10 @@
 			<h1 class="h1">Old Posts</h1>
 			<div class="innerOldPosts">
 				<p>
-					This is an old post. This is an old post.This is an old post. 
-					This is an old post. This is an old post.This is an old post. 
-					This is an old post. This is an old post.This is an old post. 
-					This is an old post. This is an old post.This is an old post. 
+					This is an old post. This is an old post. This is an old post. 
+					This is an old post. This is an old post. This is an old post. 
+					This is an old post. This is an old post. This is an old post. 
+					This is an old post. This is an old post. This is an old post. 
 				</p>
 			</div>
 		</div>

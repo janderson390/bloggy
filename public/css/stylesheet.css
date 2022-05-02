@@ -64,11 +64,19 @@ body {
 }
 
 .navLinks ul > li:hover {
-    background-color: blue;
+    background-color: lightgrey;
 }
 
 .navLinks ul > li:hover:last-child {
     background-color: transparent;
+}
+
+.searchContainer {
+    margin: 0.25rem;
+}
+
+.searchContainer button {
+    cursor: pointer;
 }
 
 .h1 {
@@ -97,7 +105,16 @@ body {
     width: 820px;
     margin: 2rem auto;
     padding: .8rem;
+}
 
+.postWrapper {
+    border: 1px solid black;
+    background-color: rgb(158, 117, 117);
+    margin-bottom: 1rem;
+}
+
+.postTitle {
+    font-weight: bold;
 }
 
 .innerOldPosts {

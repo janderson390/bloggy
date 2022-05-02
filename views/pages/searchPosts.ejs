@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('../partials/head.ejs'); %>
+</head>
+<body>
+	<h1>Bloggy</h1>
+
+	<div class="wrapper">
+
+		<%- include('../partials/testAuth.ejs'); %>
+
+		<%- include('../partials/nav.ejs'); %>
+
+		<span class="goUpBtn"></span>
+
+		<div class="outerRecentPosts">
+			<h1 class="h1">Searched Posts - By Title</h1>
+
+			<div class="innerRecentPosts">
+
+			<% if (posts == null || posts.length == 0) { %>
+				<div> No posts found. </div>
+			<% } else { %>
+				<% posts.forEach(function(r) { %>
+				<div class="postWrapper">
+					<div class="postTitle"> <%= r.title %> </div>
+					<p class="postBody"> <%= r.body %> </p>
+					<br>
+				</div>
+				<% }); %>
+			<% } %>
+			
+			</div>
+		</div>
+
+		<div class="footer">
+			<%- include('../partials/footerNav.ejs'); %>
+		</div>
+	</div>
+</body>
+</html>
