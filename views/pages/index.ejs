@@ -45,10 +45,10 @@
 			<h1 class="h1">Old Posts</h1>
 			<div class="innerOldPosts">
 				<p>
-					This is an old post. This is an old post.This is an old post.
-					This is an old post.This is an old post.This is an old post.
-					This is an old post.This is an old post.This is an old post.
-					This is an old post.This is an old post.This is an old post.
+					This is an old post. This is an old post.This is an old post. 
+					This is an old post. This is an old post.This is an old post. 
+					This is an old post. This is an old post.This is an old post. 
+					This is an old post. This is an old post.This is an old post. 
 				</p>
 			</div>
 		</div>
@@ -61,47 +61,7 @@
 
 	</div>
 
-	<!-- <script src="/js/logTask.js"></script> -->
-	<script>
-
-		let title = document.querySelector('.title');
-		let body = document.querySelector('.body');
-		let submitPostBtn = document.querySelector('.submitPost');
-
-		console.log(title.value + "   "  + body.value);
-
-// logic to insert post
-const taskThatIShallComplete = async function() {
-	const response = await fetch('/log', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			// posts_id: 1,
-			title: "'" + title.value + "'",
-			body: "'" + body.value + "'"
-		})
-	});
-	const result = await response.json();
-	console.log(result);
-	// currentTaskId = id;
-
-
-};
-
-submitPostBtn.addEventListener('click', function(e){
-
-	e.preventDefault();
-	 
-	taskThatIShallComplete();
-	
-});
-
-
-
-</script>
+	<script src="/js/post.js"></script>
 
 </body>
 </html>
