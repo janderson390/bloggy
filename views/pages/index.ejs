@@ -12,6 +12,7 @@
 
 		<span class="goUpBtn"></span>
 		
+		<% if (authenticated) {%>
 		<div class="postsForm">
 			<h2>Write a Post</h2>
 			<textarea class="title" name="titlePost" placeholder="Title" maxlength="59"></textarea>
@@ -21,7 +22,8 @@
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
 		</div>
-
+		<% } %>
+		
 		<div class="outerRecentPosts">
 			<h1 class="h1">Recent Posts</h1>
 			<div class="innerRecentPosts">

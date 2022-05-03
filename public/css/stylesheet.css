@@ -133,13 +133,13 @@ body {
 .submitPost {
     position: absolute;
     top: 612px;
-    right: 224px;
+    right: 142px;
 }
 
 .errMsg {
     position: absolute;
-    top: 600px;
-    left: 224px;
+    top: 599px;
+    left: 208px;
     color: red;
 }
 
