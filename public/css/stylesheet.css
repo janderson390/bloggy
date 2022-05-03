@@ -41,14 +41,8 @@ body {
 }
 
 .navLinks li {
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
     display: inline;
     text-align: center;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
 
     margin: -2px;
 }
@@ -56,6 +50,12 @@ body {
 .navLinks a {
     text-decoration: none;
     color:black;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .navLinks li:last-child {
@@ -63,7 +63,7 @@ body {
     background-color: none;
 }
 
-.navLinks ul > li:hover {
+.navLinks ul > li > a:hover {
     background-color: lightgrey;
 }
 
