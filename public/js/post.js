@@ -1,5 +1,5 @@
-let title = document.querySelector('.title');
-let body = document.querySelector('.body');
+let title = document.querySelector('.titleTxtForm');
+let body = document.querySelector('.bodyTxtForm');
 const EMAIL = document.querySelector('#emailVal').value;
 let errMsg = document.querySelector('.errMsg');
 let submitPostBtn = document.querySelector('.submitPost');
