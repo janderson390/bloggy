@@ -136,6 +136,13 @@ body {
     right: 224px;
 }
 
+.errMsg {
+    position: absolute;
+    top: 600px;
+    left: 224px;
+    color: red;
+}
+
 .postWrapper {
     border: 1px solid black;
     background-color: rgb(158, 117, 117);
