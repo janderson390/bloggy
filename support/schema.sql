@@ -1,9 +1,10 @@
 
 CREATE TABLE posts (
 	postsID SERIAL PRIMARY KEY,
-	 -- userID INT NOT NULL,
 	title varchar(255) NOT NULL,
-	body varchar(255) NOT NULL
+	body varchar(255) NOT NULL,
+	email varchar(255)
+	 -- userID INT NOT NULL,
 );
 
 CREATE TABLE users (

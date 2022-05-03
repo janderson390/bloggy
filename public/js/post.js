@@ -1,9 +1,12 @@
 let title = document.querySelector('.title');
 let body = document.querySelector('.body');
+const EMAIL = document.querySelector('#emailVal').value;
 let errMsg = document.querySelector('.errMsg');
 let submitPostBtn = document.querySelector('.submitPost');
 
 // console.log(title.value + " hola  " + body.value);
+
+// console.log(EMAIL);
 
 // logic to insert post
 const taskThatIShallComplete = async function () {
@@ -15,7 +18,8 @@ const taskThatIShallComplete = async function () {
 		},
 		body: JSON.stringify({
 			title: "'" + title.value + "'",
-			body: "'" + body.value + "'"
+			body: "'" + body.value + "'",
+			email: "'" + EMAIL + "'"
 		})
 	});
 	const result = await response.json();
@@ -26,6 +30,8 @@ const taskThatIShallComplete = async function () {
 submitPostBtn.addEventListener('click', function (e) {
 
 	e.preventDefault();
+
+	console.log(e);
 
 	if (title.value == "" || body.value == "") {
 		

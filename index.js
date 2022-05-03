@@ -61,7 +61,8 @@ express()
 
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
-				'authenticated': req.oidc.isAuthenticated() ? true : false
+				'authenticated': req.oidc.isAuthenticated() ? true : false,
+				'user': req.oidc.user
 			};
 			res.render('pages/index', locals);
 			client.release();
@@ -166,13 +167,14 @@ express()
 			
 			const title = req.body.title;
 			const body = req.body.body;
+			const email = req.body.email;
 
-			const displayData = [title, body];
+			const displayData = [title, body, email];
 
 			const postSql = await client.query(
 				`
-				INSERT INTO posts (title, body)
-				VALUES (${title}, ${body});
+				INSERT INTO posts (title, body, email)
+				VALUES (${title}, ${body}, ${email});
 				 
 				`
 			)

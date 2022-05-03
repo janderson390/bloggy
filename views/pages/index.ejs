@@ -18,6 +18,8 @@
 			<textarea class="title" name="titlePost" placeholder="Title" maxlength="59"></textarea>
 			<br>
 			<textarea class="body" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1024"></textarea>
+
+			<input type="hidden" id="emailVal" value="<%= user.email %>">
 			
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
@@ -28,13 +30,27 @@
 			<h1 class="h1">Recent Posts</h1>
 			<div class="innerRecentPosts">
 
-				<% posts.forEach(function(r) {%>
-				<div class="postWrapper">
-					<p class="postTitle"> <%= r.title %> </p>
-					<p class="postBody"> <%= r.body %> </p>
-					<br>
-				</div>
-				<% }); %>
+				<% if (!authenticated) {%>
+					<div class="postWrapper">
+						<p class="postTitle"> Hello There! </p>
+						<p class="postBody"> Welcome to Bloggy! </p>
+					</div>
+
+				<% } else {%>
+
+					<% posts.forEach(function(r) {%>
+					
+						<% if(user.email == r.email) {%>
+					<div class="postWrapper">
+						<p class="postTitle"> <%= r.title %> </p>
+						<p class="postBody"> <%= r.body %> </p>
+						<br>
+					</div>
+						<% } %>
+
+					<% }); %>
+
+				<% } %>
 
 			</div>
 		</div>
