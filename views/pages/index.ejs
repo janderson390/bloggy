@@ -11,11 +11,13 @@
 		<%- include('../partials/nav.ejs'); %>
 
 		<span class="goUpBtn"></span>
-
-		<div class="createBtn">
+		
+		<div class="postsForm">
 			<h2>Write a Post</h2>
-			<textarea class="title" placeholder="Title"></textarea><br>
-			<textarea class="body" placeholder="ENTER YOUR BRAIN IDEA"></textarea>
+			<textarea class="title" name="titlePost" placeholder="Title" maxlength="59"></textarea>
+			<br>
+			<textarea class="body" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1024"></textarea>
+			
 			<button class="submitPost">Submit Post</button>
 		</div>
 
@@ -25,7 +27,7 @@
 
 				<% posts.forEach(function(r) {%>
 				<div class="postWrapper">
-					<div class="postTitle"> <%= r.title %> </div>
+					<p class="postTitle"> <%= r.title %> </p>
 					<p class="postBody"> <%= r.body %> </p>
 					<br>
 				</div>

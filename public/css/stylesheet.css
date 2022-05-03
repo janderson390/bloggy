@@ -107,6 +107,35 @@ body {
     padding: .8rem;
 }
 
+.postsForm {
+    background-color: azure;
+    width: 720px;
+    height: 380px;
+    margin: 0 auto;
+    padding: 1px;
+}
+
+.title {
+    resize: none;
+    width: 660px;
+    height: 24px;
+    font-size: 20px;
+    
+}
+
+.body {
+    resize: none;
+    width: 660px;
+    height: 240px;
+    font-size: 18px;
+}
+
+.submitPost {
+    position: absolute;
+    top: 612px;
+    right: 224px;
+}
+
 .postWrapper {
     border: 1px solid black;
     background-color: rgb(158, 117, 117);
