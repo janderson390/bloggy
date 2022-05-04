@@ -12,9 +12,22 @@
 
 		<span class="goUpBtn"></span>
 
-		<h1>Settings</h1>
-		<h3>Under construction...</h3>
-
+		<h1>Update Account</h1> 
+		<form action="/settings/updateUser">
+			<label for="fName">First name:</label>
+			<br>
+			<input type="text" id="fName" name="fName">
+			<br>
+			<label for="lName">Last name:</label>
+			<br>
+			<input type="text" id="lName" name="lName">
+			<br>
+			<label for="uName">Username:</label>
+			<br>
+			<input type="text" id="uName" name="uName">
+			<br>
+			<input type="submit" value="Update">
+		</form>
         <div class="footer">
 			<%- include('../partials/footerNav.ejs'); %>
 		</div>

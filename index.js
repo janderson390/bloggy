@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || 'https://aqueous-reaches-99018.herokuapp.com';
 const { auth, requiresAuth } = require('express-openid-connect');
 const { Pool } = require('pg');
+const axios = require("axios").default;
+const token;
 //const { isNull } = require('util');
 
 
@@ -158,8 +160,26 @@ express()
 	.get('/authenticateLogout', (req, res) => {
 		authenticateLogin(req, res, '/logout');
 	})
-	
-
+	.get('/settings/updateUser', (req, res) => {
+		// TODO update update data using the req object
+		// var options = {
+		// 	method: 'PATCH',
+		// 	url: 'https://dev-jihvntvr.us.auth0.com/api/v2/users/USER_ID',
+		// 	headers: {
+		// 	  'content-type': 'application/json',
+		// 	  authorization: 'Bearer ' + token,
+		// 	  'cache-control': 'no-cache'
+		// 	},
+		// 	data: '{ "given_name": GIVEN_NAME_VALUE, "family_name": FAMILY_NAME_VALUE,"name": NAME_VALUE, "nickname": NICKNAME_VALUE,"picture": PICTURE_VALUE }'
+		// };
+		
+		// axios.request(options).then(function (response) {
+		// 	console.log(response.data);
+		// }).catch(function (error) {
+		// 	console.error(error);
+		// });
+		res.send("Updated");
+	})
 	.post('/log', async(req, res) => {
 		try {
 			const client = await pool.connect();
