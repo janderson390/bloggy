@@ -1,12 +1,9 @@
+const EMAIL = document.querySelector('#emailVal').value;
 let title = document.querySelector('.titleTxtForm');
 let body = document.querySelector('.bodyTxtForm');
-const EMAIL = document.querySelector('#emailVal').value;
 let errMsg = document.querySelector('.errMsg');
 let submitPostBtn = document.querySelector('.submitPost');
 
-// console.log(title.value + " hola  " + body.value);
-
-// console.log(EMAIL);
 
 // logic to insert post
 const taskThatIShallComplete = async function () {
@@ -30,8 +27,6 @@ const taskThatIShallComplete = async function () {
 submitPostBtn.addEventListener('click', function (e) {
 
 	e.preventDefault();
-
-	console.log(e);
 
 	if (title.value == "" || body.value == "") {
 		
@@ -72,4 +67,12 @@ function checkString(str) {
 	str = strArray.join('');
 
 	return str;
-} 
+}
+
+// Prevent multi-line for the title in post form
+title.addEventListener('keypress', function(e) {
+	if (e.keyCode === 13) {
+		e.preventDefault();
+		return false;
+	}
+})

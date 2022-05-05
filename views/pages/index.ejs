@@ -15,9 +15,9 @@
 		<% if (authenticated) {%>
 		<div class="postsForm">
 			<h2>Write a Post</h2>
-			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="59"></textarea>
+			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="58"></textarea>
 			<br>
-			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1024"></textarea>
+			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1022"></textarea>
 
 			<input type="hidden" id="emailVal" value="<%= user.email %>">
 			
@@ -25,6 +25,10 @@
 			<p class="errMsg"></p>
 		</div>
 		<% } %>
+
+		<div class="dailyTopic">
+
+		</div>
 		
 		<div class="outerRecentPosts">
 			<h1 class="h1">Recent Posts</h1>

@@ -3,9 +3,6 @@ body {
     text-align: center;
 }
 
-/*
-    Reminder to self: remove outter div borders
-*/
 .wrapper {
     margin: 0 auto;
     text-align: center;
@@ -42,8 +39,6 @@ body {
 .navLinks li {
     display: inline;
     text-align: center;
-
-    margin: -2px;
 }
 
 .navLinks a {
@@ -55,19 +50,15 @@ body {
     padding-bottom: .5rem;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
+    margin: -1.8px;
 }
 
 .navLinks li:last-child > a {
     border-right: none;
-    background-color: none;
 }
 
 .navLinks ul > li > a:hover {
     background-color: lightgrey;
-}
-
-.navLinks ul > li:hover:last-child {
-    background-color: transparent;
 }
 
 .searchContainer {
@@ -127,7 +118,8 @@ body {
     width: 660px;
     height: 24px;
     font-size: 20px;
-    
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .bodyTxtForm {
@@ -203,8 +195,9 @@ body {
     color: blue;
 }
 
-/* Mobile */
 
+
+/* Mobile */
 @media (max-width: 940px) {
     .wrapper {
         width: 680px;
@@ -260,7 +253,6 @@ body {
 
     
 }
-
 
 @media (max-width: 700px) {
     .wrapper {
