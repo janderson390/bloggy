@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || 'https://aqueous-reaches-99018.herokuapp.com';
 const { auth, requiresAuth } = require('express-openid-connect');
 const { Pool } = require('pg');
-const axios = require("axios").default;
-const token;
+// const axios = require("axios").default;
+// const token;
 //const { isNull } = require('util');
 
 
