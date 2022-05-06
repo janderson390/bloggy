@@ -33,7 +33,7 @@ updateBtn.addEventListener('click', function(e) {
         errMsg.innerText = "Please fill in all fields.";
         console.log(usrName + " " + fName + " " + lName);
     } else {
-        errMsg.innerText = "updated info";
+        errMsg.innerText = "";
 		updateUserInfo();
     }
 
