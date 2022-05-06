@@ -100,7 +100,8 @@ express()
 			const client = await pool.connect();
 
 			const locals = {
-				'authenticated': req.oidc.isAuthenticated() ? true : false
+				'authenticated': req.oidc.isAuthenticated() ? true : false,
+				'user': req.oidc.user
 			};
 			
 			res.render('pages/settings', locals);
