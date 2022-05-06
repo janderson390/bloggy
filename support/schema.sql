@@ -9,9 +9,9 @@ CREATE TABLE posts (
 
 CREATE TABLE users (
 	userID TEXT PRIMARY KEY,
-	userName TEXT NOT NULL,
-	firstName TEXT NOT NULL,
-	lastName TEXT NOT NULL
+	userName TEXT,
+	firstName TEXT,
+	lastName TEXT
 );
 
 INSERT INTO posts (userID, title, body) 

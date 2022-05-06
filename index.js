@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || 'https://aqueous-reaches-99018.herokuapp.com';
 const { auth, requiresAuth } = require('express-openid-connect');
 const { Pool } = require('pg');
+const { user } = require('pg/lib/defaults');
 // const axios = require("axios").default;
 // const token;
 //const { isNull } = require('util');
@@ -23,8 +24,36 @@ const pool = new Pool({
 
 
 function authenticateLogin(req, res, target) {
-    res.redirect(req.oidc.isAuthenticated() ? target : '/login');
+	res.redirect(req.oidc.isAuthenticated() ? target : '/login');
 }
+
+const insertUserQuery = async function (req, res, client) {
+	const user = req.oidc.user;
+
+	const checkQuery = `SELECT * FROM users WHERE userID = '${user.email}'`;
+
+	const insertQuery = `
+	DO $$
+	BEGIN
+	IF NOT EXISTS (${checkQuery}) THEN
+	INSERT INTO users(userID, userName, firstName, lastName) 
+	VALUES('${user.email}', '${user.nickname}', ' ' , ' ');
+	END IF;
+	END $$
+	`;
+
+	try {
+
+		await client.query(`BEGIN`);
+		await client.query(insertQuery);
+		await client.query(`COMMIT`);
+
+	} catch (err) {
+		await client.query(`ROLLBACK`);
+		console.error(err);
+		res.send("Error " + err);
+	}
+};
 
 
 // Static Files (files that don't change when your app is running)
@@ -37,14 +66,14 @@ express().use('js', express.static(__dirname + 'public/js'));
 express()
 	.use(express.static(path.join(__dirname, 'public')))
 	.use(express.json())
-	.use(express.urlencoded({ extended: true}))
+	.use(express.urlencoded({ extended: true }))
 	.use(auth({
 		authRequired: false,
 		auth0Logout: true,
 		issuerBaseURL: 'https://dev-jihvntvr.us.auth0.com',
-    	baseURL: BASE_URL,
-    	clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
-    	secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',	
+		baseURL: BASE_URL,
+		clientID: 'wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748',
+		secret: 'awdasgwafasd126gg4llkgr41ssfbbhuyb33',
 	}))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs')
@@ -53,7 +82,7 @@ express()
 	.get('/', (req, res) => {
 		res.redirect('/home');
 	})
-	.get('/home', async(req, res) => {
+	.get('/home', async (req, res) => {
 
 		try {
 			const client = await pool.connect();
@@ -61,58 +90,78 @@ express()
 			const posts = await client.query(
 				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
+			const user = req.oidc.user;
+
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': req.oidc.user
+				'user': user
 			};
 			res.render('pages/index', locals);
 			client.release();
-		} 
+		}
 		catch (err) {
 			console.error(err);
 			res.send("Error " + err);
 		}
 	})
-	.get('/profile', requiresAuth(), async(req, res) => {
+	.get('/profile', requiresAuth(), async (req, res) => {
 		try {
 			const client = await pool.connect();
+
+			insertUserQuery(req, res, client);
 
 			const posts = await client.query(
 				`SELECT * FROM posts ORDER BY postsid ASC;`);
 
+			const user = req.oidc.user;
+			
+			const hkUser = await client.query(
+				`SELECT * FROM users WHERE userID = '${user.email}'`);
+
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': req.oidc.user
+				'hkUser': (hkUser) ? hkUser.rows : null,
+				'user': user
 			};
+
 			res.render('pages/profile', locals);
 
 			client.release();
-		} 
+		}
 		catch (err) {
 			console.error(err);
 			res.send("Error " + err);
 		}
 	})
-	.get('/settings', requiresAuth(), async(req, res) => {
+	.get('/settings', requiresAuth(), async (req, res) => {
 		try {
 			const client = await pool.connect();
 
+			insertUserQuery(req, res, client);
+
+			const user = req.oidc.user;
+
+			const hkUser = await client.query(
+				`SELECT * FROM users WHERE userID = '${user.email}'`);
+
 			const locals = {
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': req.oidc.user
+				'hkUser': (hkUser) ? hkUser.rows : null,
+				'user': user
 			};
-			
+
+
 			res.render('pages/settings', locals);
 			client.release();
-		} 
+		}
 		catch (err) {
 			console.error(err);
 			res.send("Error " + err);
 		}
 	})
-	.get('/search', async(req, res) => {
+	.get('/search', async (req, res) => {
 		try {
 			const client = await pool.connect();
 
@@ -131,13 +180,13 @@ express()
 
 			res.render('pages/searchPosts', locals);
 			client.release();
-		} 
+		}
 		catch (err) {
 			console.error(err);
 			res.send("Error " + err);
 		}
 	})
-	.get('/createPost', async(req, res) => {
+	.get('/createPost', async (req, res) => {
 		try {
 			const client = await pool.connect();
 
@@ -149,7 +198,7 @@ express()
 			};
 			res.render('pages/createPost', locals);
 			client.release();
-		} 
+		}
 		catch (err) {
 			console.error(err);
 			res.send("Error " + err);
@@ -161,31 +210,48 @@ express()
 	.get('/authenticateLogout', (req, res) => {
 		authenticateLogin(req, res, '/logout');
 	})
-	.get('/settings/updateUser', (req, res) => {
-		// TODO update update data using the req object
-		// var options = {
-		// 	method: 'PATCH',
-		// 	url: 'https://dev-jihvntvr.us.auth0.com/api/v2/users/USER_ID',
-		// 	headers: {
-		// 	  'content-type': 'application/json',
-		// 	  authorization: 'Bearer ' + token,
-		// 	  'cache-control': 'no-cache'
-		// 	},
-		// 	data: '{ "given_name": GIVEN_NAME_VALUE, "family_name": FAMILY_NAME_VALUE,"name": NAME_VALUE, "nickname": NICKNAME_VALUE,"picture": PICTURE_VALUE }'
-		// };
-		
-		// axios.request(options).then(function (response) {
-		// 	console.log(response.data);
-		// }).catch(function (error) {
-		// 	console.error(error);
-		// });
-		res.send("Updated");
+	.post ('/updateUser', async (req, res) => {
+		try {
+			const client = await pool.connect();
+
+			const user = req.oidc.user;
+
+			const userName = req.body.userName;
+			const firstName = req.body.firstName;
+			const lastName = req.body.lastName;
+
+			const updateQuery = await client.query(
+				`
+				UPDATE users
+				SET userName = ${userName},
+				firstName = ${firstName},
+				lastName = ${lastName}
+				WHERE userID = '${user.email}';
+				`
+			);
+
+			const result = {
+				'response': (updateQuery) ? (updateQuery.rows) : null,
+			};
+
+			res.set({
+				'Content-Type': 'application/json'
+			});
+
+			res.json({ requestBody: result });
+
+			client.release();
+
+		} catch (err) {
+			console.error(err);
+			res.send("Error " + err);
+		}
 	})
-	.post('/log', async(req, res) => {
+	.post('/log', async (req, res) => {
 		try {
 			const client = await pool.connect();
 			const postsId = req.body.postsID;
-			
+
 			const title = req.body.title;
 			const body = req.body.body;
 			const email = req.body.email;
@@ -214,4 +280,4 @@ express()
 			res.send("Error " + err);
 		}
 	})
-	.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+	.listen(PORT, () => console.log(`Listening on ${PORT}`));
