@@ -144,6 +144,11 @@ body {
     color: red;
 }
 
+
+#error {
+    color: red;
+}
+
 .postWrapper {
     border: 1px solid black;
     background-color: rgb(158, 117, 117);

@@ -2,7 +2,7 @@ let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 let usrName = document.querySelector('#uName');
 let fName = document.querySelector('#fName');
 let lName = document.querySelector('#lName');
-let errMsg = document.querySelector('.errMsg');
+let errMsg = document.querySelector('#error');
 let updateForm = document.querySelector('.updateForm');
 let updateBtn = document.querySelector('#updateBtn');
 let hkUserName = document.querySelector('#hkUserName');
@@ -29,12 +29,13 @@ const updateUserInfo = async function () {
 updateBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    if (usrName == "" || fName == "" || lName == "") {
-        errMsg.innerText = "Please fill in all fields.";
+    if (usrName.value == "" || fName.value == "" || lName.value == "") {
+        errMsg.innerHTML = "Please fill in all fields.";
         console.log(usrName + " " + fName + " " + lName);
     } else {
         errMsg.innerText = "";
 		updateUserInfo();
+		window.location.href='/profile';
     }
 
 
