@@ -152,7 +152,6 @@ express()
 				'user': user
 			};
 
-
 			res.render('pages/settings', locals);
 			client.release();
 		}
@@ -165,6 +164,13 @@ express()
 		try {
 			const client = await pool.connect();
 
+			insertUserQuery(req, res, client);
+
+			const user = req.oidc.user;
+
+			const hkUser = await client.query(
+				`SELECT * FROM users WHERE userID = '${user.email}'`);
+
 			// This is /search?search=text
 			const searchText = req.query.search.toLocaleLowerCase();
 
@@ -175,7 +181,9 @@ express()
 
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
-				'authenticated': req.oidc.isAuthenticated() ? true : false
+				'authenticated': req.oidc.isAuthenticated() ? true : false,
+				'hkUser': (hkUser) ? hkUser.rows : null,
+				'user': user
 			};
 
 			res.render('pages/searchPosts', locals);
