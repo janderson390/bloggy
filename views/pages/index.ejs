@@ -44,6 +44,9 @@
 					<div class="postWrapper">
 						<p class="postTitle"> <%= r.title %> </p>
 						<p class="postBody"> <%= r.body %> </p>
+						<button id="<%= r.id %>"
+							onClick = "javascript:deletePost('<%= r.id %>');"
+							>Delete Post</button>
 						<br>
 					</div>
 						<% } %>
