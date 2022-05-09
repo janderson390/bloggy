@@ -255,6 +255,44 @@ express()
 			res.send("Error " + err);
 		}
 	})
+	.post('/removePost', requiresAuth(), async (req, res) => {
+
+		const client = await pool.connect();
+
+		const id = req.body.id;
+
+		const checkQuery = `EXISTS(SELECT postsID FROM posts WHERE postsID = ${id})`;
+
+		const deleteQuery = `DELETE FROM posts WHERE postsID = ${id} AND (${checkQuery});`;
+
+		try {
+
+
+			await client.query('BEGIN');
+			await client.query(deleteQuery);
+			await client.query('COMMIT');
+
+		} catch (err) {
+
+			await client.query('ROLLBACK');
+			console.error(err);
+			res.send(err);
+
+		}
+
+		const result = {
+			'response': (deleteQuery) ? (deleteQuery.rows) : null
+		};
+
+		res.set({
+			'Content-Type': 'application/json'
+		});
+
+		res.json({ requestBody: result });
+
+		client.release();
+
+	})
 	.post('/log', async (req, res) => {
 		try {
 			const client = await pool.connect();
