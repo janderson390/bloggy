@@ -24,6 +24,8 @@ const updateUserInfo = async function () {
 	const result = await response.json();
 	console.log(result);
 
+	window.location.href='/profile';
+
 };
 
 updateBtn.addEventListener('click', function(e) {
@@ -35,7 +37,6 @@ updateBtn.addEventListener('click', function(e) {
     } else {
         errMsg.innerText = "";
 		updateUserInfo();
-		window.location.href='/profile';
     }
 
 
