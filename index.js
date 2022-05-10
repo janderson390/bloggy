@@ -180,9 +180,12 @@ express()
 			let searchText = req.query.search.toLocaleLowerCase();
 			console.log("Initial search: " + searchText);
 
-			// Grab words surrounded by ""
-			const regx = /"(.*?)"/g;
-			const quotedWords = searchText.match(regx);
+			// Replace single quotes with doubles
+			searchText = searchText.replaceAll("'", '"');
+
+			// Grab words surrounded by double quotes
+			const regex = /"(.*?)"/g;
+			const quotedWords = searchText.match(regex);
 
 			// Remove quoted words from the searchText
 			if (quotedWords != null) {
