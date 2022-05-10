@@ -255,24 +255,6 @@ express()
 			res.send("Error " + err);
 		}
 	})
-	.get('/createPost', async (req, res) => {
-		try {
-			const client = await pool.connect();
-
-			const posts = await client.query(
-				`SELECT * FROM posts ORDER BY postsid ASC;`);
-
-			const locals = {
-				'posts': (posts) ? posts.rows : null
-			};
-			res.render('pages/createPost', locals);
-			client.release();
-		}
-		catch (err) {
-			console.error(err);
-			res.send("Error " + err);
-		}
-	})
 	.get('/authenticateLogin', (req, res) => {
 		authenticateLogin(req, res, '/createPost');
 	})
