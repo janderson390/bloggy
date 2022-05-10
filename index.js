@@ -164,6 +164,7 @@ express()
 		try {
 			const client = await pool.connect();
 
+			// User authentication
 			insertUserQuery(req, res, client);
 
 			const user = req.oidc.user;
@@ -171,13 +172,73 @@ express()
 			const hkUser = await client.query(
 				`SELECT * FROM users WHERE userID = '${user.email}'`);
 
+			// Searching
 			// This is /search?search=text
-			const searchText = req.query.search.toLocaleLowerCase();
+			let searchText = req.query.search.toLocaleLowerCase();
+			console.log("Initial search: " + searchText);
+
+			// Grab words surrounded by ""
+			const regx = /"(.*?)"/g;
+			const quotedWords = searchText.match(regx);
+
+			// Remove quoted words from the searchText
+			if (quotedWords != null) {
+				quotedWords.forEach(word => {
+					searchText = searchText.replace(word, "");
+				});
+
+				// Trim, remove first occurance of extra whitespace between words
+				searchText = searchText.replace(/\s+/g, " ").trim();
+
+				console.log("With removed quoted words: " + searchText);
+
+				// Remove the quotes from quoted words
+				for (let i = 0; i < quotedWords.length; i++) {
+					quotedWords[i] = quotedWords[i].replace(/"/g, "");
+					quotedWords[i] = quotedWords[i].trim();
+					console.log("Quoted word #" + i + " " + quotedWords[i]);
+				}
+			}
+
+			// Split words into array if there are still words in searchText
+			let wordsArray = null;
+			if (searchText !== "") {
+				wordsArray = searchText.split(" ");
+			}
+
+			let newString = "";
+
+			// Join words together separating each with ('wordHere'), etc...
+			if (wordsArray != null) {
+				console.log("Length of words: " + wordsArray.length);
+
+				for (let i = 0; i < wordsArray.length; i++) {
+					if (i !== wordsArray.length - 1) {
+						newString += "('%" + wordsArray[i] + "%'), ";
+					} else {
+						newString += "('%" + wordsArray[i] + "%')";
+					}
+				}
+			}
+
+			// Last, join the quoted words onto the new string
+			if (quotedWords != null) {
+				quotedWords.forEach(word => {
+					if (newString !== "") {
+						newString += `, ('%${word}%')`;
+					} else {
+						newString = `('%${word}%')`;
+					}
+				});
+			}
+
+			console.log(newString);
 
 			// Returns posts if the title has anything containing searchText, using LOWER() to make case insensitive
+			// const posts = await client.query(`SELECT * FROM posts WHERE LOWER(title) SIMILAR TO '%${ wordsArray }%';`);
 			const posts = await client.query(`
-				SELECT * FROM posts WHERE LOWER(title) SIMILAR TO '%${searchText}%';
-			`);
+				SELECT * FROM posts 
+				WHERE LOWER(title) LIKE ANY(VALUES${ newString });`);
 
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
