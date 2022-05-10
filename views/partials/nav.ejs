@@ -6,7 +6,7 @@
                 <li><a href="settings">Settings</a></li>
                 <li><a href="authenticateLogout"><%= text || "Login/Out" %></a></li>
             </ul>
-
+            <% if (displaySearch) { %>
             <div class="searchContainer">
                 <form action="/search" method="get">
                     <input id="searchBox" type="text" placeholder="Search..." name="search" required>
@@ -17,6 +17,7 @@
                     <button type="submit" onClick="return isSearchEmpty()""><i class="fa fa-search"></i></button>
                 </form>
             </div>
+            <% } %>
             <% if(authenticated) {%>
             <input type="hidden" id="emailVal" value="<%= user.email %>">
             <% } %>

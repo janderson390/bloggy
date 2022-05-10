@@ -95,7 +95,8 @@ express()
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': user
+				'user': user,
+				'displaySearch': true
 			};
 			res.render('pages/index', locals);
 			client.release();
@@ -123,7 +124,8 @@ express()
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': false
 			};
 
 			res.render('pages/profile', locals);
@@ -149,7 +151,8 @@ express()
 			const locals = {
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': false
 			};
 
 			res.render('pages/settings', locals);
@@ -244,7 +247,8 @@ express()
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': true
 			};
 
 			res.render('pages/searchPosts', locals);
