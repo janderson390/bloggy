@@ -9,12 +9,12 @@
 
             <div class="searchContainer">
                 <form action="/search" method="get">
-                    <input id="searchBox" type="text" placeholder="Search..." name="search">
+                    <input id="searchBox" type="text" placeholder="Search..." name="search" required>
 
                     <!-- This allows user to press enter to submit search instead of clicking the button-->
-                    <input type="submit" style="display: none"/>
+                    <input type="submit" style="display: none" onClick="return isSearchEmpty()"/>
 
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" onClick="return isSearchEmpty()""><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <% if(authenticated) {%>
