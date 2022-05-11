@@ -1,12 +1,12 @@
 // TOP OF THE PAGE BUTTON
-mybutton = document.getElementById("myBtn");
+let mybutton = document.getElementById("toTopBtn");
 
 window.onscroll = function() {
     scrollFunction()
 };
 
 function scrollFunction() {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    if (document.body.scrollTop > 25 || document.documentElement.scrollTop > 25) {
         mybutton.style.display = "block";
     } else {
         mybutton.style.display = "none";
@@ -21,10 +21,10 @@ function topFunction() {
 
 
 // SEARCHING
-let elementValue = document.querySelector("#searchBox").value;
+let searchBox = document.querySelector("#searchBox");
 
 function isSearchEmpty() {
-    if (elementValue == null || elementValue == "") {
+    if (searchBox.value == null || searchBox.value == "") {
         return false;
     };
 }
@@ -32,25 +32,27 @@ function isSearchEmpty() {
 
 // CHECKING CHARACTERS LEFT
 let postBody = document.querySelector("textarea.bodyTxtForm");
-let charsLeftSpan = document.querySelector("#charsLeftNum");
+let charsLeft = document.querySelector("#charsLeft");
 let submitBtn = document.querySelector(".submitPost");
 
 const maxPostChars = 255;
 
 // Fires everytime the value changes
-postBody.addEventListener("input", function(e) {
-    // Grab length of postBody
-    let postLength = postBody.value.length;
-
-    // Update the charsLeftSpan
-    let charsLeft = maxPostChars - postLength;
-    charsLeftSpan.innerHTML = charsLeft;
-
-    // Change color of the charsLeftSpan if charsLeft is negative or not
-    charsLeftSpan.style.color = (charsLeft <= 0) ? "red" : "black";
-
-    // Check length of postBody text is more than 255
-    // If true, disable submit button, else enable it
-    submitBtn.disabled = (postBody.value.length > 255);
-
-});
+if (postBody) {
+    postBody.addEventListener("input", function(e) {
+        // Grab length of postBody
+        let postLength = postBody.value.length;
+    
+        // Update the charsLeft
+        let numLeft = maxPostChars - postLength;
+        charsLeft.innerHTML = numLeft;
+    
+        // Change color of the charsLeft if charsLeft is negative or not
+        charsLeft.style.color = (numLeft <= 0) ? "red" : "black";
+    
+        // Check length of postBody text is more than 255
+        // If true, disable submit button, else enable it
+        submitBtn.disabled = (postBody.value.length > 255);
+    
+    });
+}
