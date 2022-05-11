@@ -9,7 +9,7 @@
             <% if (displaySearch) { %>
             <div class="searchContainer">
                 <form action="/search" method="get">
-                    <input id="searchBox" type="text" placeholder="Search..." name="search" required>
+                    <input id="searchBox" type="text" placeholder="Search for posts..." name="search" required>
 
                     <!-- This allows user to press enter to submit search instead of clicking the button-->
                     <input type="submit" style="display: none" onClick="return isSearchEmpty()"/>
