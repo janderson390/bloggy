@@ -11,12 +11,13 @@
 		<% if (authenticated) {%>
 		<div class="postsForm">
 			<h2>Write a Post</h2>
-			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="58"></textarea>
+			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="255"></textarea>
 			<br>
-			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1022"></textarea>
+			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="500"></textarea>
 			
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
+			<p id="charsLeft">Characters left: <span id="charsLeftNum">255</span></p>
 		</div>
 		<% } %>
 

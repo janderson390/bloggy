@@ -144,9 +144,16 @@ body {
     color: red;
 }
 
-
 #error {
     color: red;
+}
+
+#charsLeft {
+    float: left;
+    text-align: left;
+    margin-top: 3px;
+    width: 10rem;
+    margin-left: 64%;
 }
 
 .postWrapper {
