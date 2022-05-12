@@ -5,28 +5,25 @@
 	<h1>Bloggy</h1>
 
 	<div class="wrapper">
-
 		<%- include('../partials/testAuth.ejs'); %>
-
 		<%- include('../partials/nav.ejs'); %>
 
 		<% if (authenticated) {%>
 		<div class="postsForm">
 			<h2>Write a Post</h2>
-			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="58"></textarea>
+			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="255"></textarea>
 			<br>
-			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="1022"></textarea>
+			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="500"></textarea>
 			
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
+			<p id="charsLeft">255</p>
 		</div>
 		<% } %>
 
 		<div class="dailyTopic">
 
 		</div>
-
-		<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 		
 		<div class="outerRecentPosts">
 			<h1 class="h1">Recent Posts</h1>
@@ -81,7 +78,7 @@
 	<script src="/js/deletePost.js"></script>
 	<% } %>
 
-	<script src="/js/toTheTop.js"></script>
+	<script src="/js/utils.js"></script>
 
 </body>
 </html>

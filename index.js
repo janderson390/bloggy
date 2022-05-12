@@ -95,7 +95,8 @@ express()
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': user
+				'user': user,
+				'displaySearch': true
 			};
 			res.render('pages/index', locals);
 			client.release();
@@ -123,7 +124,8 @@ express()
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': false
 			};
 
 			res.render('pages/profile', locals);
@@ -149,7 +151,8 @@ express()
 			const locals = {
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': false
 			};
 
 			res.render('pages/settings', locals);
@@ -177,9 +180,12 @@ express()
 			let searchText = req.query.search.toLocaleLowerCase();
 			console.log("Initial search: " + searchText);
 
-			// Grab words surrounded by ""
-			const regx = /"(.*?)"/g;
-			const quotedWords = searchText.match(regx);
+			// Replace single quotes with doubles
+			searchText = searchText.replaceAll("'", '"');
+
+			// Grab words surrounded by double quotes
+			const regex = /"(.*?)"/g;
+			const quotedWords = searchText.match(regex);
 
 			// Remove quoted words from the searchText
 			if (quotedWords != null) {
@@ -244,28 +250,11 @@ express()
 				'posts': (posts) ? posts.rows : null,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
-				'user': user
+				'user': user,
+				'displaySearch': true
 			};
 
 			res.render('pages/searchPosts', locals);
-			client.release();
-		}
-		catch (err) {
-			console.error(err);
-			res.send("Error " + err);
-		}
-	})
-	.get('/createPost', async (req, res) => {
-		try {
-			const client = await pool.connect();
-
-			const posts = await client.query(
-				`SELECT * FROM posts ORDER BY postsid ASC;`);
-
-			const locals = {
-				'posts': (posts) ? posts.rows : null
-			};
-			res.render('pages/createPost', locals);
 			client.release();
 		}
 		catch (err) {

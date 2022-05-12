@@ -1,27 +1,25 @@
-<nav class="navLinks">
-    <ul>
-        <li><a href="home">Home</a></li>
-        <li><a href="profile">Profile</a></li>
-        <li><a href="settings">Settings</a></li>
-        <li><a href="authenticateLogout"><%= text || "Login/Out" %></a></li>
-    </ul>
+<!-- It looks like this because of formatting when looking at view-source in browser -->
+        <nav class="navLinks">
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="profile">Profile</a></li>
+                <li><a href="settings">Settings</a></li>
+                <li><a href="authenticateLogout"><%= text || "Login/Out" %></a></li>
+            </ul>
+            <% if (displaySearch) { %>
+            <div class="searchContainer">
+                <form action="/search" method="get">
+                    <input id="searchBox" type="text" placeholder="Search for posts..." name="search" required>
 
-    <div class="searchContainer">
-        <form action="/search" method="get">
-            <input id="searchBox" type="text" placeholder="Search..." name="search">
+                    <!-- This allows user to press enter to submit search instead of clicking the button-->
+                    <input type="submit" style="display: none" onClick="return isSearchEmpty()"/>
 
-            <!-- This allows user to press enter to submit search instead of clicking the button-->
-            <input type="submit" style="display: none"/>
-
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
-
-    <% if(authenticated) {%>
-		<input type="hidden" id="emailVal" value="<%= user.email %>">
-    <% } %>
-
-	<span class="goUpBtn"></span>
-
-</nav>
-
+                    <button type="submit" onClick="return isSearchEmpty()""><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <% } %>
+            <% if(authenticated) {%>
+            <input type="hidden" id="emailVal" value="<%= user.email %>">
+            <% } %>
+            <button onclick="topFunction()" id="toTopBtn" title="Jump to the top of the page"><i class="fa fa-arrow-up"></i></button>
+        </nav>

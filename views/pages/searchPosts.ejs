@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 <%- include('../partials/head.ejs'); %>
-</head>
 <body>
 	<h1>Bloggy</h1>
 
 	<div class="wrapper">
-
 		<%- include('../partials/testAuth.ejs'); %>
-
 		<%- include('../partials/nav.ejs'); %>
 
-		<span class="goUpBtn"></span>
 
 		<div class="outerRecentPosts">
 			<h1 class="h1">Searched Posts - By Title</h1>
@@ -38,5 +33,7 @@
 			<%- include('../partials/footerNav.ejs'); %>
 		</div>
 	</div>
+
+	<script src="/js/utils.js"></script>
 </body>
 </html>
