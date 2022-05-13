@@ -101,7 +101,7 @@ body {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
     right: 3rem; 
-    bottom: 15rem;
+    bottom: 10rem;
     z-index: 99; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
