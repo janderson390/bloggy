@@ -87,18 +87,38 @@ express()
 		try {
 			const client = await pool.connect();
 
-			const posts = await client.query(
-				`SELECT * FROM posts ORDER BY postsid DESC;`);
-
 			const user = req.oidc.user;
 
-			const locals = {
-				'posts': (posts) ? posts.rows : null,
-				'authenticated': req.oidc.isAuthenticated() ? true : false,
-				'user': user,
-				'displaySearch': true
-			};
-			res.render('pages/index', locals);
+			if (user) {
+				const posts = await client.query(
+					`SELECT * FROM posts ORDER BY postsid DESC;`);
+	
+				const yourPosts = await client.query(
+					`SELECT * FROM posts WHERE email = '${user.email}' ORDER BY postsID DESC;`);
+	
+				const locals = {
+					'posts': (posts) ? posts.rows : null,
+					'yourPosts': (yourPosts) ? yourPosts.rows : null,
+					'authenticated': req.oidc.isAuthenticated() ? true : false,
+					'user': user,
+					'displaySearch': true
+				};
+
+				res.render('pages/index', locals);
+
+
+			} else {
+
+				const locals = {
+					'authenticated': req.oidc.isAuthenticated() ? true : false,
+					'displaySearch': true
+				}
+
+				res.render('pages/index', locals);
+
+			}
+
+
 			client.release();
 		}
 		catch (err) {

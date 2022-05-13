@@ -58,17 +58,20 @@
 			</div>
 		</div>
 
-		<div class="outerOldPosts">
-			<h1 class="h1">Old Posts</h1>
-			<div class="innerOldPosts">
-				<p>
-					This is an old post. This is an old post. This is an old post. 
-					This is an old post. This is an old post. This is an old post. 
-					This is an old post. This is an old post. This is an old post. 
-					This is an old post. This is an old post. This is an old post. 
-				</p>
+		<% if (authenticated) {%>
+			<div class="outerOldPosts">
+				<h1 class="h1">Your Posts</h1>
+				<div class="innerOldPosts">
+				<% yourPosts.forEach(function(r) {%>
+					<div class="postWrapper">
+						<p class="postTitle"> <%= r.title %> </p>
+						<p class="postBody"> <%= r.body %> </p>
+						<button id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
+					</div>
+				<% }); %>
+				</div>
 			</div>
-		</div>
+			<% } %>
 
 		<div class="footer">
 
