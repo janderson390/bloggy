@@ -43,6 +43,8 @@ submitPostBtn.addEventListener('click', function (e) {
 		
 		window.location.reload();
 
+		formDiv.style.display = 'none';
+
 	}
 
 });

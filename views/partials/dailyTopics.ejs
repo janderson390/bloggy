@@ -1,0 +1,45 @@
+<%
+let dailyTopics = [
+    'What technology do you think would change the world for the better or worse?',
+    'Where would you travel if you could go anywhere right now?',
+    'Do you have any pets or do you wish you had one?',
+    'What is your biggest pet peve?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    'What do you aspire to be?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?',
+    '?'
+];
+
+let date = new Date();
+todaysTopic = dailyTopics[date.getDate() - 1];
+%>
+
+<div class="dailyTopicDiv">
+
+    <h2>Daily Topic</h2>
+    <p class="dailyTopic"><%= todaysTopic %></p>
+
+</div>

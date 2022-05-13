@@ -88,7 +88,7 @@ express()
 			const client = await pool.connect();
 
 			const posts = await client.query(
-				`SELECT * FROM posts ORDER BY postsid ASC;`);
+				`SELECT * FROM posts ORDER BY postsid DESC;`);
 
 			const user = req.oidc.user;
 
