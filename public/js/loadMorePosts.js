@@ -2,17 +2,19 @@ let postWrapper = document.querySelectorAll('.innerRecentPosts > .postWrapper');
 let yourPostWrapper = document.querySelectorAll('.innerOldPosts > .postWrapper');
 let recentPostsLoadBtn = document.querySelector('.recentPostLoadBtn');
 let yourPostsLoadBtn = document.querySelector('.yourPostLoadBtn');
-let limiter = 5;
+let postLimit = 5;
+let yourPostLimit = 5;
 
-hidePostsFrom(postWrapper, recentPostsLoadBtn, limiter);
+hidePostsFrom(postWrapper, recentPostsLoadBtn, postLimit);
 
-hidePostsFrom(yourPostWrapper, yourPostsLoadBtn, limiter);
-
+hidePostsFrom(yourPostWrapper, yourPostsLoadBtn, yourPostLimit);
 
 recentPostsLoadBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
-    showPostsFrom(postWrapper, recentPostsLoadBtn, limiter);
+    showPostsFrom(postWrapper, recentPostsLoadBtn, postLimit);
+
+    postLimit += 5;
 
 })
 
@@ -20,7 +22,9 @@ recentPostsLoadBtn.addEventListener('click', function (e) {
 yourPostsLoadBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
-    showPostsFrom(yourPostWrapper, yourPostsLoadBtn, limiter);
+    showPostsFrom(yourPostWrapper, yourPostsLoadBtn, yourPostLimit);
+
+    yourPostLimit += 5;
 })
 
 
@@ -42,11 +46,9 @@ function showPostsFrom(name, btnName, limit) {
 
     if (limit == name.length) {
         btnName.style.display = "none";
-        limiter = 5;
+        limit = 5;
         return;
     }
-
-    limiter = limit;
 
 }
 
