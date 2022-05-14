@@ -18,7 +18,7 @@
 			<h2>Write a Post</h2>
 			<textarea class="titleTxtForm" name="titlePost" placeholder="Title" maxlength="255"><%= todaysTopic %></textarea>
 			<br>
-			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="500"></textarea>
+			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="255"></textarea>
 			
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
@@ -53,6 +53,8 @@
 
 					<% }); %>
 
+					<button class="recentPostLoadBtn">Load More</button>
+
 				<% } %>
 
 			</div>
@@ -69,6 +71,7 @@
 						<button id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
 					</div>
 				<% }); %>
+					<button class="yourPostLoadBtn">Load More</button>
 				</div>
 			</div>
 			<% } %>
@@ -85,6 +88,7 @@
 	<script src="/js/post.js"></script>
 	<script src="/js/deletePost.js"></script>
 	<script src="/js/showPostForm.js"></script>
+	<script src="/js/loadMorePosts.js"></script>
 	<% } %>
 
 	<script src="/js/utils.js"></script>
