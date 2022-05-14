@@ -47,7 +47,11 @@
 					<div class="postWrapper">
 						<p class="postTitle"> <%= r.title %> </p>
 						<p class="postBody"> <%= r.body %> </p>
+						<% hkUser.forEach(function(u) {%>
+							<% if(u.userid == r.email) {%>
 						<button class="deleteButton" id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
+							<% } %>
+						<% }); %>
 						<br>
 					</div>
 

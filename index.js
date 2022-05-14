@@ -90,17 +90,23 @@ express()
 			const user = req.oidc.user;
 
 			if (user) {
+				insertUserQuery(req, res, client);
+
 				const posts = await client.query(
 					`SELECT * FROM posts ORDER BY postsid DESC;`);
 	
 				const yourPosts = await client.query(
 					`SELECT * FROM posts WHERE email = '${user.email}' ORDER BY postsID DESC;`);
+
+				const hkUser = await client.query(
+					`SELECT * FROM users WHERE userID = '${user.email}'`);
 	
 				const locals = {
 					'posts': (posts) ? posts.rows : null,
 					'yourPosts': (yourPosts) ? yourPosts.rows : null,
 					'authenticated': req.oidc.isAuthenticated() ? true : false,
 					'user': user,
+					'hkUser': (hkUser) ? hkUser.rows : null,
 					'displaySearch': true
 				};
 
