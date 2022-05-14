@@ -12,7 +12,7 @@
 
 		<% if (authenticated) {%>
 
-		<button id="showPostForm">Create a Post</button>
+		<div id="showPostForm"><button>Create a Post</button></div>
 
 		<div class="postsForm">
 			<h2>Write a Post</h2>
@@ -45,13 +45,12 @@
 					<% posts.forEach(function(r) {%>
 					
 					<div class="postWrapper">
-						<p class="postTitle"> <%= r.title %> </p>
-						<p class="postBody"> <%= r.body %> </p>
-						<% hkUser.forEach(function(u) {%>
-							<% if(u.userid == r.email) {%>
-						<button class="deleteButton" id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
-							<% } %>
-						<% }); %>
+						<div class="titleWrapper">
+							<p class="postTitle"> <%= r.title %> </p>
+						</div>
+						<div class="bodyWrapper">
+							<p class="postBody"> <%= r.body %> </p>
+						</div>
 						<br>
 					</div>
 
@@ -70,9 +69,13 @@
 				<div class="innerOldPosts">
 				<% yourPosts.forEach(function(r) {%>
 					<div class="postWrapper">
-						<p class="postTitle"> <%= r.title %> </p>
-						<p class="postBody"> <%= r.body %> </p>
-						<button id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
+						<div class="titleWrapper">
+							<p class="postTitle"> <%= r.title %> </p>
+						</div>
+						<div class="bodyWrapper">
+							<p class="postBody"> <%= r.body %> </p>
+						</div>
+						<button class="deleteButton" id="<%= r.id %>"onClick = "javascript:deletePost('<%= r.postsid %>');">Delete Post</button>
 					</div>
 				<% }); %>
 					<button class="yourPostLoadBtn">Load More</button>
