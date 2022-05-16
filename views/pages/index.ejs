@@ -12,7 +12,7 @@
 
 		<% if (authenticated) {%>
 
-		<div id="showPostForm"><button>Create a Post</button></div>
+		<button id="showPostForm">Create a Post</button>
 
 		<div class="postsForm">
 			<h2>Write a Post</h2>
@@ -20,6 +20,7 @@
 			<br>
 			<textarea class="bodyTxtForm" name="bodyPost" placeholder="ENTER YOUR BRAIN IDEA" maxlength="255"></textarea>
 			
+			<button class="exitPostBtn">X</button>
 			<button class="submitPost">Submit Post</button>
 			<p class="errMsg"></p>
 			<p id="charsLeft">255</p>
