@@ -103,6 +103,17 @@ button:hover {
     background-color: rgb(146, 146, 146);
 }
 
+#updateBtn {
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.35rem;
+}
+
+#updateBtn:hover {
+    background-color: rgb(146, 146, 146);
+}
+
 #toTopBtn {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
@@ -239,6 +250,7 @@ button:hover {
 }
 
 .postTitle {
+    padding-left: 1rem;
     font-weight: bold;
     padding-top: 1rem;
     overflow: hidden;
@@ -247,6 +259,7 @@ button:hover {
 .postBody {
     padding-left: 2rem;
     padding-right: 1rem;
+    word-wrap: break-word;
     overflow: auto;
 }
 
@@ -290,6 +303,30 @@ button:hover {
     font-weight: bold;
 }
 
+.profileInfo {
+    color: darkslategray;
+    background-color: gainsboro;
+    margin: 0 auto;
+    margin-left: 25%;
+    margin-right: 25%;
+    overflow: auto;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: larger;
+}
+
+.updateAccountWrapper {
+    color: darkslategray;
+    background-color: gainsboro;
+    margin: 0 auto;
+    margin-left: 25%;
+    margin-right: 25%;
+    overflow: auto;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: larger;
+    text-align: center;
+}
 
 
 /* Mobile */
