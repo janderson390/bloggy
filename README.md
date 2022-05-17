@@ -11,6 +11,8 @@ topics.
 1. Install postgres (https://www.postgresql.org/download/)
 2. Install nodeJS (https://nodejs.org/en/download/)
 3. Install Heroku - Follow installation on the following page (https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
+4. Install Auth0 with "npm install express-openid-connect"
+5. Install .ENV with "npm install dotenv"
 
 
 ## DELETE BEFORE SUBMITTING
