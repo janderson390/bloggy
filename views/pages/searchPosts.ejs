@@ -10,7 +10,7 @@
 
 
 		<div class="outerRecentPosts">
-			<h1 class="h1">Searched Posts - By Title</h1>
+			<h1 class="h1">Searched Posts - By <%= filterType %></h1>
 
 			<div class="innerRecentPosts">
 
@@ -35,5 +35,13 @@
 	</div>
 
 	<script src="/js/utils.js"></script>
+	<script>
+		function setOriginalSearch() {
+			document.querySelector("#searchBox").value = '<%= origSearch %>';
+			document.querySelector("#filters").value = '<%= origFilter %>';
+		}
+
+		window.onload = setOriginalSearch;
+	</script>
 </body>
 </html>

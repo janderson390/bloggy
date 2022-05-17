@@ -99,6 +99,9 @@ button {
     box-shadow: 0 0 4.5px rgba(0, 0, 0, 0.301);
 }
 
+button:hover {
+    background-color: rgb(146, 146, 146);
+}
 
 #showPostForm {
     position: fixed;
@@ -121,10 +124,6 @@ button {
 
 #showPostForm:hover {
     background-color: #555;
-}
-
-button:hover {
-    background-color: rgb(146, 146, 146);
 }
 
 #updateBtn {

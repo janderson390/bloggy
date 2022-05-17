@@ -16,6 +16,13 @@
                 <input type="submit" style="display: none" onClick="return isSearchEmpty()"/>
 
                 <button type="submit" onClick="return isSearchEmpty()"><i class="fa fa-search"></i></button>
+
+                <label for="filters">Filter by:</i></label>
+                <select name="filters" id="filters">
+                    <option value="title">Title</option>
+                    <option value="content">Content</option>
+                    <option value="tandc">Title and Content</option>
+                </select>
             </form>
         </div>
         <% } %>

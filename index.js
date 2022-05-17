@@ -195,16 +195,13 @@ express()
 
 			// User authentication
 			insertUserQuery(req, res, client);
-
 			const user = req.oidc.user;
-
 			const hkUser = await client.query(
 				`SELECT * FROM users WHERE userID = '${user.email}'`);
 
 			// Searching
 			// This is /search?search=text
 			let searchText = req.query.search.toLocaleLowerCase();
-			console.log("Initial search: " + searchText);
 
 			// Replace single quotes with doubles
 			searchText = searchText.replaceAll("'", '"');
@@ -222,13 +219,10 @@ express()
 				// Trim, remove first occurance of extra whitespace between words
 				searchText = searchText.replace(/\s+/g, " ").trim();
 
-				console.log("With removed quoted words: " + searchText);
-
 				// Remove the quotes from quoted words
 				for (let i = 0; i < quotedWords.length; i++) {
 					quotedWords[i] = quotedWords[i].replace(/"/g, "");
 					quotedWords[i] = quotedWords[i].trim();
-					console.log("Quoted word #" + i + " " + quotedWords[i]);
 				}
 			}
 
@@ -242,8 +236,6 @@ express()
 
 			// Join words together separating each with ('wordHere'), etc...
 			if (wordsArray != null) {
-				console.log("Length of words: " + wordsArray.length);
-
 				for (let i = 0; i < wordsArray.length; i++) {
 					if (i !== wordsArray.length - 1) {
 						newString += "('%" + wordsArray[i] + "%'), ";
@@ -264,16 +256,41 @@ express()
 				});
 			}
 
-			console.log(newString);
+			// Determine which filter to use
+			let filter = req.query.filters;
+			let query = ``;
+			let filterType = "";
+			switch(filter) {
+				case "content":
+					query = `
+						SELECT * FROM posts 
+						WHERE LOWER(body) LIKE ANY(VALUES${ newString });`;
+					filterType = "Content";
+					break;
+				case "tandc":
+					query = `
+						SELECT * FROM posts 
+						WHERE LOWER(title) LIKE ANY(VALUES${ newString })
+						OR LOWER(body) LIKE ANY(VALUES${ newString });`;
+					filterType = "Title and Content";
+					break;
+				case "title":
+				default:
+					query = `
+						SELECT * FROM posts 
+						WHERE LOWER(title) LIKE ANY(VALUES${ newString });`;
+					filterType = "Title";
+			}
 
 			// Returns posts if the title has anything containing searchText, using LOWER() to make case insensitive
 			// const posts = await client.query(`SELECT * FROM posts WHERE LOWER(title) SIMILAR TO '%${ wordsArray }%';`);
-			const posts = await client.query(`
-				SELECT * FROM posts 
-				WHERE LOWER(title) LIKE ANY(VALUES${ newString });`);
+			const posts = await client.query(query);
 
 			const locals = {
 				'posts': (posts) ? posts.rows : null,
+				'filterType': filterType,
+				'origSearch': req.query.search,
+				'origFilter': req.query.filters,
 				'authenticated': req.oidc.isAuthenticated() ? true : false,
 				'hkUser': (hkUser) ? hkUser.rows : null,
 				'user': user,
