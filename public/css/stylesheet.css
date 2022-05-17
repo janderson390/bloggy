@@ -178,7 +178,7 @@ button:hover {
     color:black;
 }
 
-.outerRecentPosts {
+.outerRecentPosts, .outerOldPosts {
     width: 820px;
     margin: 2rem auto;
     background-color: gainsboro;
@@ -189,24 +189,13 @@ button:hover {
 }
 
 .outerOldPosts {
-    width: 820px;
-    margin: 2rem auto;
     background-color: lightgoldenrodyellow;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 4.5px rgba(0, 0, 0, 0.301);
 }
 
-.innerRecentPosts {
-    color: black;
-}
-
-
-.innerOldPosts {
+.innerRecentPosts, .innerOldPosts  {
     width: 780px;
     margin: 2rem auto;
     padding: .8rem;
-
 }
 
 .postsForm {
@@ -223,6 +212,7 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
 .titleTxtForm {
@@ -292,6 +282,17 @@ button:hover {
     color: black;
     box-shadow: 0 0 4.5px rgba(0, 0, 0, 0.301);
 }
+
+.recentPostLoadBtn, .yourPostLoadBtn, #updateBtn {
+    border-radius: 4px;
+}
+
+
+.recentPostLoadBtn, .yourPostLoadBtn {
+    position: relative;
+    margin: 0 auto;
+}
+
 
 .deleteButton {
     margin-right: 1rem;
@@ -406,11 +407,7 @@ button:hover {
         width: 600px;
     }
 
-    .titleTxtForm {
-        width: 580px;
-    }
-
-    .bodyTxtForm {
+    .titleTxtForm, .bodyTxtForm {
         width: 580px;
     }
 
@@ -418,20 +415,11 @@ button:hover {
         margin-left: 15px;
     }
 
-    .outerRecentPosts {
+    .outerRecentPosts, .outerOldPosts {
         width: 580px;
     }
 
-    .outerOldPosts {
-        width: 580px;
-    }
-
-    .innerRecentPosts {
-        width: 540px;
-        padding: 0;
-    }
-
-    .innerOldPosts {
+    .innerRecentPosts, .innerOldPosts {
         width: 540px;
         padding: 0;
     }
@@ -439,6 +427,10 @@ button:hover {
     .postWrapper {
         width: 540px;
         margin: 1em auto;
+    }
+
+    .exitPostBtn {
+        margin-left: -20px;
     }
 
     #myBtn {
@@ -483,23 +475,16 @@ button:hover {
         width: 365px;
     }
 
-    .outerRecentPosts {
+    .outerRecentPosts, .outerOldPosts {
         width: 340px;
 
     }
 
-    .outerOldPosts {
-        width: 340px;
 
-    }
-
-    .innerRecentPosts {
+    .innerRecentPosts, .innerOldPosts  {
         width: 320px;
     }
 
-    .innerOldPosts {
-        width: 320px;
-    }
 
     .postWrapper {
         width: 345px;
