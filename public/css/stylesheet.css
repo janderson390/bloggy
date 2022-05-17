@@ -103,6 +103,19 @@ button:hover {
     background-color: rgb(146, 146, 146);
 }
 
+#filterLbl {
+    color: #eee;
+    text-shadow: 1px 1px #555;
+}
+
+#filters {
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    padding: 0.25rem;
+    box-shadow: 0 0 4.5px rgba(0, 0, 0, 0.301);
+}
+
 #showPostForm {
     position: fixed;
     bottom: 5rem;
