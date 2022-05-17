@@ -477,7 +477,6 @@ button:hover {
 
     .outerRecentPosts, .outerOldPosts {
         width: 340px;
-
     }
 
 
@@ -488,5 +487,6 @@ button:hover {
 
     .postWrapper {
         width: 345px;
+        margin-left: -12px;
     }
 }
