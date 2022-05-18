@@ -12,16 +12,8 @@ topics.
 2. Install nodeJS (https://nodejs.org/en/download/)
 3. Install Heroku - Follow installation on the following page (https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
 4. Install Auth0 with "npm install express-openid-connect"
-5. Install .ENV with "npm install dotenv"
-
-
-## DELETE BEFORE SUBMITTING
-secret
-ISSUER_BASE_URL=https://dev-jihvntvr.us.auth0.com
-CLIENT_ID=wqx2OAZZ9hfJe2Y1naSTa9oItVKLT748
-BASE_URL=http://localhost:5000
-SECRET=awdasgwafasd126gg4llkgr41ssfbbhuyb33
-####################
+5. Watch the following video and follow along: https://www.youtube.com/watch?v=QQwo4E_B0y8
+6. Install .ENV with "npm install dotenv"
 
 ## NOTE:
 To run locally, you must change the baseURL property in index.js to 'http://localhost:5000'
